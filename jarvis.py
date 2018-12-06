@@ -34,6 +34,8 @@ def peek(df):
     display(df.head(10))
     display(Markdown('## Description of columns'))
     display(df.describe())
+    display(Markdown('## Information of columns'))
+    display(df.info())
 
 def scatter(df, x: str, y: str):
     fig, ax = plt.subplots()
@@ -46,7 +48,7 @@ def dist(df, col_name):
     df_col = df[col_name]
     sns.distplot(df_col, fit=norm);
     (mu, sigma) = norm.fit(df_col)
-    display(Markdown('### mu = {:.2f} and sigma = {:.2f}'.format(mu, sigma)))
+    display(Markdown('### mu = {:.2f}, sigma = {:.2f}, skewness = {:.2f}, kurtosis = {:.2f}'.format(mu, sigma, df_col.skew(), df_col.kurt())))
     plt.legend(['Normal dist. ($\mu=$ {:.2f} and $\sigma=$ {:.2f} )'.format(mu, sigma)],
                loc='best')
     plt.ylabel('Frequency')
@@ -86,6 +88,63 @@ def corr(df):
     corrmat = df.corr()
     plt.subplots(figsize=(12,9))
     sns.heatmap(corrmat, vmax=0.9, square=True)
+
+def corr2(df, nr_c, targ):
+    corr = df.corr()
+    corr_abs = corr.abs()
+    cols = corr_abs.nlargest(nr_c, targ)[targ].index
+    cm = np.corrcoef(df[cols].values.T)
+
+    plt.figure(figsize=(nr_c/1.5, nr_c/1.5))
+    sns.set(font_scale=1.25)
+    sns.heatmap(cm, linewidths=1.5, annot=True, square=True,
+                fmt='.2f', annot_kws={'size': 10},
+                yticklabels=cols.values, xticklabels=cols.values)
+    plt.show()
+
+def get_numerical_feats(df):
+    return df.dtypes[df.dtypes != "object"].index
+
+def get_cat_feats(df):
+    return df.dtypes[df.dtypes == "object"].index
+
+def plot_feats_target_corr(df, target, li_plot_num_feats=None):
+    if li_plot_num_feats is None:
+        numerical_feats = list(get_numerical_feats(df))
+        li_plot_num_feats = [c for c in list(numerical_feats) if c is not target]
+
+    nr_cols = 3
+    nr_rows = int(len(li_plot_num_feats) / 3 + 1)
+    fig, axs = plt.subplots(nr_rows, nr_cols, figsize=(nr_cols * 3.5, nr_rows * 3))
+
+    for r in range(0, nr_rows):
+        for c in range(0, nr_cols):
+            i = r * nr_cols + c
+            if i < len(li_plot_num_feats):
+                sns.regplot(df[li_plot_num_feats[i]], df[target], ax = axs[r][c])
+                stp = stats.pearsonr(df[li_plot_num_feats[i]], df[target])
+                str_title = "r = " + "{0:.2f}".format(stp[0]) + "      " "p = " + "{0:.2f}".format(stp[1])
+                axs[r][c].set_title(str_title, fontsize=11)
+
+    plt.tight_layout()
+    plt.show()
+
+def plot_cat_target_corr(df, target):
+    categorical_feats = get_cat_feats(df)
+    li_cat_feats = list(categorical_feats)
+    nr_cols = 3
+    nr_rows = int(len(li_cat_feats) / 3 + 1)
+
+    fig, axs = plt.subplots(nr_rows, nr_cols, figsize=(nr_cols * 4, nr_rows * 3))
+
+    for r in range(0, nr_rows):
+        for c in range(0, nr_cols):
+            i = r * nr_cols + c
+            if i < len(li_cat_feats):
+                sns.boxplot(x=li_cat_feats[i], y=target, data=df, ax = axs[r][c])
+
+    plt.tight_layout()
+    plt.show()
 
 def fillna_group_mean(all_data, group: str, name: str):
     all_data[name] = all_data.groupby(group)[name].transform(lambda x: x.fillna(x.median()))
