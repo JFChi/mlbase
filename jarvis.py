@@ -16,8 +16,9 @@ from scipy.stats import norm, skew #for some statistics
 pd.set_option('display.float_format', lambda x: '{:.3f}'.format(x))
 
 def read(path: str):
+    nan_list = ['na', 'nan', '--']
     if path.endswith(".csv"):
-        return pd.read_csv(path)
+        return pd.read_csv(path, na_values=nan_list)
 
 from IPython import get_ipython
 from IPython.display import display, Markdown
@@ -31,7 +32,7 @@ from sklearn.preprocessing import LabelEncoder
 def peek(df):
     display(Markdown('## Shape: {}'.format(df.shape)))
     display(Markdown('## First 10 rows:'))
-    display(df.head(10))
+    display(df.sample(10))
     display(Markdown('## Description of columns'))
     display(df.describe())
     display(Markdown('## Information of columns'))
@@ -69,6 +70,7 @@ def concat(df_train, df_test, target):
     return all_data
 
 def check_missing(all_data, n = 20):
+    '''n: show top n most-missing columns'''
     all_data_na = (all_data.isnull().sum() / len(all_data)) * 100
     all_data_na = all_data_na.drop(all_data_na[all_data_na == 0].index)
     all_data_na = all_data_na.sort_values(ascending=False)[:n]
