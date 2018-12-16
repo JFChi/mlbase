@@ -47,7 +47,7 @@ def scatter(df, x: str, y: str):
 
 def dist(df, col_name):
     df_col = df[col_name]
-    sns.distplot(df_col, fit=norm);
+    sns.distplot(df_col, fit=norm)
     (mu, sigma) = norm.fit(df_col)
     display(Markdown('### mu = {:.2f}, sigma = {:.2f}, skewness = {:.2f}, kurtosis = {:.2f}'.format(mu, sigma, df_col.skew(), df_col.kurt())))
     plt.legend(['Normal dist. ($\mu=$ {:.2f} and $\sigma=$ {:.2f} )'.format(mu, sigma)],
@@ -85,6 +85,7 @@ def check_missing(all_data, n = 20):
     plt.xlabel('Features', fontsize=15)
     plt.ylabel('Percent of missing values', fontsize=15)
     plt.title('Percent missing data by feature', fontsize=15)
+    return all_data_na
 
 def corr(df):
     corrmat = df.corr()
@@ -179,7 +180,7 @@ from sklearn.kernel_ridge import KernelRidge
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import RobustScaler
 from sklearn.base import BaseEstimator, TransformerMixin, RegressorMixin, clone
-from sklearn.model_selection import KFold, cross_val_score, train_test_split
+from sklearn.model_selection import KFold, cross_val_score, train_test_split, GridSearchCV
 from sklearn.metrics import mean_squared_error
 import xgboost as xgb
 import lightgbm as lgb
@@ -193,7 +194,7 @@ def rmsle_cv(model, df_train, y_train, n_folds=5):
 
 lasso = make_pipeline(RobustScaler(), Lasso(alpha =0.0005, random_state=1))
 ENet = make_pipeline(RobustScaler(), ElasticNet(alpha=0.0005, l1_ratio=.9, random_state=3))
-KRR = KernelRidge(alpha=0.6, kernel='polynomial', degree=2, coef0=2.5)
+KRR = make_pipeline(RobustScaler(), KernelRidge(alpha=0.6, kernel='polynomial', degree=2, coef0=2.5))
 GBoost = GradientBoostingRegressor(n_estimators=3000, learning_rate=0.05,
                                    max_depth=4, max_features='sqrt',
                                    min_samples_leaf=15, min_samples_split=10,
@@ -204,13 +205,30 @@ model_xgb = xgb.XGBRegressor(colsample_bytree=0.4603, gamma=0.0468,
                              reg_alpha=0.4640, reg_lambda=0.8571,
                              subsample=0.5213, silent=1,
                              random_state =7, nthread = -1)
-model_lgb = lgb.LGBMRegressor(objective='regression',num_leaves=5,
-                              learning_rate=0.05, n_estimators=720,
-                              max_bin = 55, bagging_fraction = 0.8,
-                              bagging_freq = 5, feature_fraction = 0.2319,
-                              feature_fraction_seed=9, bagging_seed=9,
-                              min_data_in_leaf =6, min_sum_hessian_in_leaf = 11)
 
+def model_lgb(X, y, n_learning_rate=None, n_estimators=None):
+    if n_learning_rate is not None and n_estimators is not None:
+        estimator = lgb.LGBMRegressor(objective='regression',num_leaves=5,
+                                  n_learning_rate = n_learning_rate, n_estimators=n_estimators,
+                                  max_bin = 55, bagging_fraction = 0.8,
+                                  bagging_freq = 5, feature_fraction = 0.2319,
+                                  feature_fraction_seed=9, bagging_seed=9,
+                                  min_data_in_leaf =6, min_sum_hessian_in_leaf = 11)
+        estimator.fit(X, y)
+        return estimator
+
+    param_grid = {
+        'learning_rate': [0.01, 0.05, 0.1],
+        'n_estimators' : [40, 720],
+    }
+    estimator = lgb.LGBMRegressor(objective='regression',num_leaves=5,
+                                  max_bin = 55, bagging_fraction = 0.8,
+                                  bagging_freq = 5, feature_fraction = 0.2319,
+                                  feature_fraction_seed=9, bagging_seed=9,
+                                  min_data_in_leaf =6, min_sum_hessian_in_leaf = 11)
+    grid_rf = GridSearchCV(estimator, param_grid, cv=5, refit=True, verbose=1, scoring = 'neg_mean_squared_error', n_jobs=6)
+    grid_rf.fit(X, y)
+    return grid_rf
 
 class AveragingModels(BaseEstimator, RegressorMixin, TransformerMixin):
     def __init__(self, models):
