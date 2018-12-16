@@ -195,10 +195,10 @@ def rmsle_cv(model, df_train, y_train, n_folds=5):
 lasso = make_pipeline(RobustScaler(), Lasso(alpha =0.0005, random_state=1))
 ENet = make_pipeline(RobustScaler(), ElasticNet(alpha=0.0005, l1_ratio=.9, random_state=3))
 KRR = make_pipeline(RobustScaler(), KernelRidge(alpha=0.6, kernel='polynomial', degree=2, coef0=2.5))
-GBoost = GradientBoostingRegressor(n_estimators=3000, learning_rate=0.05,
+GBoost = make_pipeline(RobustScaler(), GradientBoostingRegressor(n_estimators=3000, learning_rate=0.05,
                                    max_depth=4, max_features='sqrt',
                                    min_samples_leaf=15, min_samples_split=10,
-                                   loss='huber', random_state =5)
+                                   loss='huber', random_state =5))
 model_xgb = xgb.XGBRegressor(colsample_bytree=0.4603, gamma=0.0468,
                              learning_rate=0.05, max_depth=3,
                              min_child_weight=1.7817, n_estimators=2200,
@@ -208,12 +208,13 @@ model_xgb = xgb.XGBRegressor(colsample_bytree=0.4603, gamma=0.0468,
 
 def model_lgb(X, y, n_learning_rate=None, n_estimators=None):
     if n_learning_rate is not None and n_estimators is not None:
-        estimator = lgb.LGBMRegressor(objective='regression',num_leaves=5,
+        estimator = make_pipeline(RobustScaler(),
+                            lgb.LGBMRegressor(objective='regression',num_leaves=5,
                                   n_learning_rate = n_learning_rate, n_estimators=n_estimators,
                                   max_bin = 55, bagging_fraction = 0.8,
                                   bagging_freq = 5, feature_fraction = 0.2319,
                                   feature_fraction_seed=9, bagging_seed=9,
-                                  min_data_in_leaf =6, min_sum_hessian_in_leaf = 11)
+                                  min_data_in_leaf =6, min_sum_hessian_in_leaf = 11))
         estimator.fit(X, y)
         return estimator
 
@@ -288,3 +289,11 @@ class StackingAveragedModels(BaseEstimator, RegressorMixin, TransformerMixin):
 
 def rmsle(y, y_pred):
     return np.sqrt(mean_squared_error(y, y_pred))
+
+def get_best_score(grid):
+    best_score = np.sqrt(-grid.best_score_)
+    print(best_score)    
+    print(grid.best_params_)
+    print(grid.best_estimator_)
+
+    return best_score
