@@ -3,29 +3,36 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import warnings
+
+# ignore annoying warning (from sklearn and seaborn)
 def ignore_warn(*args, **kwargs):
     pass
-warnings.warn = ignore_warn #ignore annoying warning (from sklearn and seaborn)
+warnings.warn = ignore_warn
 warnings.filterwarnings('ignore')
 
 
 from scipy import stats
-from scipy.stats import norm, skew #for some statistics
-
+from scipy.stats import norm, skew
 
 pd.set_option('display.float_format', lambda x: '{:.3f}'.format(x))
-
-def read(path: str):
-    nan_list = ['na', 'nan', '--']
-    if path.endswith(".csv"):
-        return pd.read_csv(path, na_values=nan_list)
 
 from IPython import get_ipython
 from IPython.display import display, Markdown
 ipy = get_ipython()
-ipy.magic('matplotlib inline')
+if ipy:
+    try:
+        ipy.magic('matplotlib inline')
+        ipy.magic("config InlineBackend.figure_format = 'svg'")
+    except Exception as e:
+        print(e)
 
 from sklearn.preprocessing import LabelEncoder
+
+# na_values: Additional strings to recognize as NA/NaN
+def read(path: str):
+    nan_list = ['na', 'nan', '--']
+    if path.endswith(".csv"):
+        return pd.read_csv(path, na_values=nan_list)
 
 ## EDA
 
