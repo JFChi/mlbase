@@ -26,8 +26,6 @@ if ipy:
     except Exception as e:
         print(e)
 
-from sklearn.preprocessing import LabelEncoder
-
 # na_values: Additional strings to recognize as NA/NaN
 def read(path: str):
     nan_list = ['na', 'nan', '--']
@@ -37,6 +35,8 @@ def read(path: str):
 ## EDA
 
 def peek(df):
+    '''Show basic information about df
+    '''
     display(Markdown('## Shape: {}'.format(df.shape)))
     display(Markdown('## First 10 rows:'))
     display(df.sample(10))
@@ -46,6 +46,8 @@ def peek(df):
     display(df.info())
 
 def scatter(df, x: str, y: str):
+    '''Generate scatter graph for x and y columns in df
+    '''
     fig, ax = plt.subplots()
     ax.scatter(x = df[x], y = df[y])
     plt.ylabel(x, fontsize=13)
@@ -160,6 +162,7 @@ def fillna_group_mean(all_data, group: str, name: str):
     all_data[name] = all_data.groupby(group)[name].transform(lambda x: x.fillna(x.median()))
 
 def label_encode(all_data, name):
+    from sklearn.preprocessing import LabelEncoder
     lbl = LabelEncoder()
     lbl.fit(list(all_data[name].values))
     all_data[name] = lbl.transform(list(all_data[name].values))
