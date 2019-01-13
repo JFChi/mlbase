@@ -1,0 +1,246 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Welcome to Jarvis’s documentation! &#8212; Jarvis  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-jarvis">
+<span id="welcome-to-jarvis-s-documentation"></span><h1>Welcome to Jarvis’s documentation!<a class="headerlink" href="#module-jarvis" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="jarvis.AveragingModels">
+<em class="property">class </em><code class="descclassname">jarvis.</code><code class="descname">AveragingModels</code><span class="sig-paren">(</span><em>models</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.AveragingModels" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="jarvis.AveragingModels.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.AveragingModels.fit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="jarvis.AveragingModels.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.AveragingModels.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="jarvis.StackingAveragedModels">
+<em class="property">class </em><code class="descclassname">jarvis.</code><code class="descname">StackingAveragedModels</code><span class="sig-paren">(</span><em>base_models</em>, <em>meta_model</em>, <em>n_folds=5</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.StackingAveragedModels" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="jarvis.StackingAveragedModels.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.StackingAveragedModels.fit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="jarvis.StackingAveragedModels.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.StackingAveragedModels.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="jarvis.check_missing">
+<code class="descclassname">jarvis.</code><code class="descname">check_missing</code><span class="sig-paren">(</span><em>all_data</em>, <em>n=20</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.check_missing" title="Permalink to this definition">¶</a></dt>
+<dd><p>n: show top n most-missing columns</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jarvis.concat">
+<code class="descclassname">jarvis.</code><code class="descname">concat</code><span class="sig-paren">(</span><em>df_train</em>, <em>df_test</em>, <em>target</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.concat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.corr">
+<code class="descclassname">jarvis.</code><code class="descname">corr</code><span class="sig-paren">(</span><em>df</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.corr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.corr2">
+<code class="descclassname">jarvis.</code><code class="descname">corr2</code><span class="sig-paren">(</span><em>df</em>, <em>nr_c</em>, <em>targ</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.corr2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.dist">
+<code class="descclassname">jarvis.</code><code class="descname">dist</code><span class="sig-paren">(</span><em>df</em>, <em>col_name</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.dist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.fillna_group_mean">
+<code class="descclassname">jarvis.</code><code class="descname">fillna_group_mean</code><span class="sig-paren">(</span><em>all_data</em>, <em>group: str</em>, <em>name: str</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.fillna_group_mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.get_best_score">
+<code class="descclassname">jarvis.</code><code class="descname">get_best_score</code><span class="sig-paren">(</span><em>grid</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.get_best_score" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.get_cat_feats">
+<code class="descclassname">jarvis.</code><code class="descname">get_cat_feats</code><span class="sig-paren">(</span><em>df</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.get_cat_feats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.get_numerical_feats">
+<code class="descclassname">jarvis.</code><code class="descname">get_numerical_feats</code><span class="sig-paren">(</span><em>df</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.get_numerical_feats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.get_skewness">
+<code class="descclassname">jarvis.</code><code class="descname">get_skewness</code><span class="sig-paren">(</span><em>all_data</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.get_skewness" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.ignore_warn">
+<code class="descclassname">jarvis.</code><code class="descname">ignore_warn</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.ignore_warn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.label_encode">
+<code class="descclassname">jarvis.</code><code class="descname">label_encode</code><span class="sig-paren">(</span><em>all_data</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.label_encode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.log_transform">
+<code class="descclassname">jarvis.</code><code class="descname">log_transform</code><span class="sig-paren">(</span><em>df</em>, <em>target</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.log_transform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.model_lgb">
+<code class="descclassname">jarvis.</code><code class="descname">model_lgb</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>n_learning_rate=None</em>, <em>n_estimators=None</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.model_lgb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.peek">
+<code class="descclassname">jarvis.</code><code class="descname">peek</code><span class="sig-paren">(</span><em>df</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.peek" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show basic information about df</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jarvis.plot_cat_target_corr">
+<code class="descclassname">jarvis.</code><code class="descname">plot_cat_target_corr</code><span class="sig-paren">(</span><em>df</em>, <em>target</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.plot_cat_target_corr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.plot_feats_target_corr">
+<code class="descclassname">jarvis.</code><code class="descname">plot_feats_target_corr</code><span class="sig-paren">(</span><em>df</em>, <em>target</em>, <em>li_plot_num_feats=None</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.plot_feats_target_corr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.read">
+<code class="descclassname">jarvis.</code><code class="descname">read</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.remove_skew_coxbox">
+<code class="descclassname">jarvis.</code><code class="descname">remove_skew_coxbox</code><span class="sig-paren">(</span><em>all_data</em>, <em>skewness</em>, <em>lmbda=0.15</em>, <em>threshold=0.75</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.remove_skew_coxbox" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.rmsle">
+<code class="descclassname">jarvis.</code><code class="descname">rmsle</code><span class="sig-paren">(</span><em>y</em>, <em>y_pred</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.rmsle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.rmsle_cv">
+<code class="descclassname">jarvis.</code><code class="descname">rmsle_cv</code><span class="sig-paren">(</span><em>model</em>, <em>df_train</em>, <em>y_train</em>, <em>n_folds=5</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.rmsle_cv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jarvis.scatter">
+<code class="descclassname">jarvis.</code><code class="descname">scatter</code><span class="sig-paren">(</span><em>df</em>, <em>x: str</em>, <em>y: str</em><span class="sig-paren">)</span><a class="headerlink" href="#jarvis.scatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate scatter graph for x and y columns in df</p>
+</dd></dl>
+
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to Jarvis’s documentation!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Zhen Zhang.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
