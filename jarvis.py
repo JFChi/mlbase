@@ -33,6 +33,19 @@ def read(path: str):
 
 ## EDA
 
+def plot_pca(finalDf, targets, colors):
+    plt.xlabel('Principal Component 1', fontsize = 15)
+    plt.ylabel('Principal Component 2', fontsize = 15)
+    plt.title('2 component PCA', fontsize = 20)
+    for target, color in zip(targets, colors):
+        indicesToKeep = finalDf['type'] == target
+        plt.scatter(  finalDf.loc[indicesToKeep, 'pc1']
+                    , finalDf.loc[indicesToKeep, 'pc2']
+                    , c = color
+                    , s = 50)
+    plt.legend(targets)
+    plt.grid()
+
 def peek(df):
     '''Show basic information about df
     '''
@@ -191,8 +204,6 @@ from sklearn.preprocessing import RobustScaler
 from sklearn.base import BaseEstimator, TransformerMixin, RegressorMixin, clone
 from sklearn.model_selection import KFold, cross_val_score, train_test_split, GridSearchCV
 from sklearn.metrics import mean_squared_error
-import xgboost as xgb
-import lightgbm as lgb
 
 
 def rmsle_cv(model, df_train, y_train, n_folds=5):
@@ -208,7 +219,10 @@ GBoost = make_pipeline(RobustScaler(), GradientBoostingRegressor(n_estimators=30
                                    max_depth=4, max_features='sqrt',
                                    min_samples_leaf=15, min_samples_split=10,
                                    loss='huber', random_state =5))
-model_xgb = xgb.XGBRegressor(colsample_bytree=0.4603, gamma=0.0468,
+
+def model_xgb():
+    import xgboost as xgb
+    return xgb.XGBRegressor(colsample_bytree=0.4603, gamma=0.0468,
                              learning_rate=0.05, max_depth=3,
                              min_child_weight=1.7817, n_estimators=2200,
                              reg_alpha=0.4640, reg_lambda=0.8571,
@@ -216,6 +230,7 @@ model_xgb = xgb.XGBRegressor(colsample_bytree=0.4603, gamma=0.0468,
                              random_state =7, nthread = -1)
 
 def model_lgb(X, y, n_learning_rate=None, n_estimators=None):
+    import lightgbm as lgb
     if n_learning_rate is not None and n_estimators is not None:
         estimator = make_pipeline(RobustScaler(),
                             lgb.LGBMRegressor(objective='regression',num_leaves=5,
