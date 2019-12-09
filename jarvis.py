@@ -1,7 +1,6 @@
-import numpy as np 
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 import warnings
 
 # ignore annoying warning (from sklearn and seaborn)
@@ -302,7 +301,7 @@ def rmsle(y, y_pred):
 
 def get_best_score(grid):
     best_score = np.sqrt(-grid.best_score_)
-    print(best_score)    
+    print(best_score)
     print(grid.best_params_)
     print(grid.best_estimator_)
 
