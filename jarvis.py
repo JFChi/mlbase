@@ -33,7 +33,7 @@ def read(path: str):
 
 ## EDA
 
-def plot_pca(finalDf, targets, colors):
+def plot_pca(finalDf, targets, colors, annotations=[]):
     plt.xlabel('Principal Component 1', fontsize = 15)
     plt.ylabel('Principal Component 2', fontsize = 15)
     plt.title('2 component PCA', fontsize = 20)
@@ -43,6 +43,8 @@ def plot_pca(finalDf, targets, colors):
                     , finalDf.loc[indicesToKeep, 'pc2']
                     , c = color
                     , s = 50)
+    for i, txt in annotations.items():
+        plt.annotate(txt, (finalDf.loc[i, "pc1"], finalDf.loc[i, "pc2"]))
     plt.legend(targets)
     plt.grid()
 
