@@ -2,7 +2,7 @@
 name = "mlbase"
 version = "0.1.0"
 description = ""
-authors = ["Zhen Zhang <git@zhen-zhang.com>"]
+authors = ["Zhen Zhang <pip@zhen-zhang.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
