@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import warnings
+import seaborn as sns
 
 # ignore annoying warning (from sklearn and seaborn)
 def ignore_warn(*args, **kwargs):
