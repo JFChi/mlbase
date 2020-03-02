@@ -4,7 +4,7 @@ import sys
 import glob
 import yaml
 
-from typing import Set
+from typing import Set, List
 
 from joblib import Parallel, delayed
 
@@ -332,3 +332,9 @@ def nan_str(x):
     if ret == "nan":
         return "-"
     return ret
+
+def precision_recall_fscore_df(labels: List[str], y_true, y_pred, suffix=""):
+    index = precision_recall_fscore_cols
+    index = [ i + suffix for i in index ]
+    return pd.DataFrame(list(precision_recall_fscore_support(y_true, y_pred, labels=labels)),
+                        index=index, columns=labels).T.round(3)
